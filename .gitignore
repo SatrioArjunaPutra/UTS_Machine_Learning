@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+kode/outputs/_isi.pdf
+data_uts_ml/
+Untitled spreadsheet*
