@@ -1,0 +1,4 @@
+kalibrasi,brier,log_loss,pr_auc,mean_prob,fraud_rate_aktual,cost_aturan_biaya_juta
+tanpa kalibrasi,0.00241,0.01084,0.7711,0.00556,0.00636,75.6
+Platt,0.00232,0.01094,0.7711,0.00711,0.00636,75.6
+isotonic,0.00235,0.01402,0.7667,0.00705,0.00636,76.9

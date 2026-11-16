@@ -1,0 +1,11 @@
+pola,n,porsi_transaksi_%,porsi_fraud_%,fraud_rate_%,lift,recall_model
+perangkat baru + IP luar negeri,92,0.09,8.6,60.87,95.8,0.643
+lonjakan transaksi (trx_1j >= 3),536,0.52,11.8,14.37,22.6,0.532
+ganti password 7 hari terakhir,1662,1.62,18.3,7.16,11.3,0.975
+gagal login >= 3 dalam 24 jam,1589,1.55,13.3,5.48,8.6,0.943
+jauh dari lokasi biasa (> 300 km),2636,2.57,14.9,3.68,5.8,0.907
+nominal >= 1 juta,6174,6.02,27.0,2.85,4.5,0.943
+dini hari (00.00-04.59),4817,4.7,19.9,2.7,4.2,0.831
+akun baru (< 30 hari),3537,3.45,12.9,2.37,3.7,0.44
+kartu tidak hadir,13299,12.96,39.7,1.95,3.1,0.68
+email sekali pakai,2116,2.06,6.1,1.89,3.0,0.6

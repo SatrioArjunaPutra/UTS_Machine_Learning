@@ -1,0 +1,10 @@
+strategi,n_flag,cost_juta
+tidak ada yang di-flag,0,790.1
+semua di-flag,102594,2564.8
+ambang probabilitas global (dipilih di jendela kalibrasi),2008,88.8
+aturan biaya: p x nominal > 25.000,1425,75.6
+sensitivitas: p x nominal > 0.5 x 25.000,2050,82.5
+sensitivitas: p x nominal > 0.75 x 25.000,1639,75.8
+sensitivitas: p x nominal > 1.0 x 25.000,1425,75.6
+sensitivitas: p x nominal > 1.5 x 25.000,1143,73.8
+sensitivitas: p x nominal > 2.0 x 25.000,952,75.1

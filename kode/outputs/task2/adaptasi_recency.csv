@@ -1,0 +1,3 @@
+skema,pr_auc,cost_juta
+tanpa bobot,0.7711,75.6
+bobot recency (half-life 60 hari),0.7662,79.0
