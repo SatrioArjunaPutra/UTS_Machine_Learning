@@ -1,0 +1,6 @@
+encoding_kota_tujuan,pinball_q50,pinball_q90,coverage_p90,coverage_p50
+drop,7.129,4.455,0.8764,0.4758
+freq,7.058,4.424,0.8766,0.476
+te,6.94,4.383,0.8761,0.4764
+freq_te,6.928,4.37,0.8769,0.4762
+native,6.915,4.383,0.8761,0.4787

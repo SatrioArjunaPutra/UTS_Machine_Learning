@@ -1,0 +1,7 @@
+varian,silhouette,stabilitas_ARI_rata2,stabilitas_ARI_std
+"final: Hellinger + amalgamasi, tanpa noise/profil",0.165,0.963,0.003
+CLR + amalgamasi,0.144,0.931,0.012
+CLR 16 kategori,0.145,0.94,0.015
+Hellinger 16 kategori,0.164,0.961,0.007
+porsi mentah (tanpa transformasi),0.145,0.954,0.008
++ n01-n15 dan profil tak relevan,0.165,0.96,0.004

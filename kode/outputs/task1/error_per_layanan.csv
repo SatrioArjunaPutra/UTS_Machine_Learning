@@ -1,0 +1,5 @@
+layanan,n,median_aktual,median_p50,pinball_q50,pinball_q90,coverage_p90_mentah,coverage_p90_kalibrasi
+reguler,28871,58.6,57.7,6.23,4.06,0.896,0.896
+hemat,22760,74.5,72.8,8.96,5.23,0.88,0.88
+ekspres,10106,39.7,39.3,4.54,3.35,0.9,0.9
+kargo,6867,79.2,77.9,8.14,4.99,0.884,0.884

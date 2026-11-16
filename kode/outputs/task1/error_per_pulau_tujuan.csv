@@ -1,0 +1,8 @@
+pulau_tujuan,n,median_aktual,median_p50,pinball_q50,pinball_q90,coverage_p90_mentah,coverage_p90_kalibrasi
+Jawa,45800,56.7,55.9,5.6,3.74,0.897,0.897
+Sumatera,9178,64.2,64.4,7.55,4.65,0.886,0.886
+Sulawesi,4532,89.4,91.9,10.73,5.98,0.864,0.864
+Kalimantan,3868,92.5,93.6,11.24,6.55,0.866,0.866
+Bali-Nusa Tenggara,2659,66.5,65.5,8.01,4.7,0.875,0.875
+Maluku,1341,116.9,121.3,14.11,7.67,0.874,0.874
+Papua,1226,164.2,165.2,22.45,12.56,0.86,0.86

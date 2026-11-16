@@ -1,0 +1,4 @@
+fitur,pr_auc
+"fitur final (tanpa flag_review_manual, v15, hitungan kumulatif)",0.7711
++ flag_review_manual (leakage),0.9075
++ v15 dan hitungan kumulatif (drift),0.7706

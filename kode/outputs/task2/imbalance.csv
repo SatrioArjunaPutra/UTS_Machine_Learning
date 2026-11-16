@@ -1,0 +1,4 @@
+pendekatan,pr_auc,brier_mentah,brier_kalibrasi,cost_aturan_biaya_juta,cost_ambang_global_juta
+tanpa penanganan,0.7711,0.00241,0.00232,75.6,88.8
+class weight (scale_pos_weight),0.7483,0.01054,0.00271,85.5,105.0
+undersampling negatif 1:20,0.7427,0.00324,0.0026,78.2,91.7

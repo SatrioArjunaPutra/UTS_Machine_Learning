@@ -1,0 +1,461 @@
+{
+  "lingkungan": {
+    "versi": {
+      "python": "3.14.6",
+      "numpy": "2.5.0",
+      "pandas": "3.0.3",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.0",
+      "lightgbm": "4.7.0",
+      "matplotlib": "3.11.0"
+    },
+    "seed": 42,
+    "determinisme": "3 CSV identik (MD5) pada tiga run penuh",
+    "md5": {
+      "prediksi_regresi.csv": "48c7bd14447e5067eb434431d1d22117",
+      "prediksi_klasifikasi.csv": "468e479111185f1601830cf7bae850ee",
+      "cluster.csv": "459b185e99f423a4450b0c46659a5b0b"
+    },
+    "waktu_run_penuh_menit": {
+      "run1": 16.3,
+      "run2": 25.5,
+      "run3": 23.6
+    }
+  },
+  "task1": {
+    "n_unit_menit": 370,
+    "n_jarak_9999_train": 456,
+    "n_k13_test": 2342,
+    "n_train": 250000,
+    "n_test": 60000,
+    "param_terbaik": {
+      "0.5": {
+        "num_leaves": 31,
+        "log_target": false,
+        "n_estimators": 188
+      },
+      "0.9": {
+        "num_leaves": 31,
+        "log_target": false,
+        "n_estimators": 518
+      }
+    },
+    "perbaikan_vs_baseline_q50_%": 33.9,
+    "perbaikan_vs_baseline_q90_%": 32.3,
+    "random_vs_waktu": {
+      "random 5-fold": {
+        "pinball_q50": 6.688,
+        "pinball_q90": 4.232,
+        "coverage_p90": 0.89
+      },
+      "waktu (F1-F3)": {
+        "pinball_q50": 6.772,
+        "pinball_q90": 4.279,
+        "coverage_p90": 0.895
+      }
+    },
+    "ablasi_leakage": {
+      "tanpa jumlah_scan (dipakai)": {
+        "pinball_q50": 6.928,
+        "pinball_q90": 4.37,
+        "coverage_p90": 0.8769,
+        "coverage_p50": 0.4762
+      },
+      "dengan jumlah_scan (leakage)": {
+        "pinball_q50": 5.461,
+        "pinball_q90": 2.899,
+        "coverage_p90": 0.8782,
+        "coverage_p50": 0.4831
+      }
+    },
+    "persen_kota_tujuan_baru_F3": 0.0,
+    "simulasi_kurir_baru": {
+      "K12 dikenal saat latih": {
+        "n": 2808,
+        "pinball_q50": 6.713,
+        "pinball_q90": 4.181,
+        "coverage_p90": 0.8939,
+        "coverage_p50": 0.5085
+      },
+      "K12 tidak pernah dilihat (seperti K13 di test)": {
+        "n": 2808,
+        "pinball_q50": 6.808,
+        "pinball_q90": 4.312,
+        "coverage_p90": 0.8526,
+        "coverage_p50": 0.4124
+      }
+    },
+    "konformal": {
+      "tanpa kalibrasi": {
+        "coverage_p90": 0.8899,
+        "pinball_q90": 4.438,
+        "coverage_min_layanan": 0.8799,
+        "coverage_max_layanan": 0.8996
+      },
+      "konformal global": {
+        "coverage_p90": 0.8772,
+        "pinball_q90": 4.482,
+        "coverage_min_layanan": 0.8655,
+        "coverage_max_layanan": 0.8913
+      },
+      "konformal per layanan (Mondrian)": {
+        "coverage_p90": 0.8764,
+        "pinball_q90": 4.475,
+        "coverage_min_layanan": 0.8723,
+        "coverage_max_layanan": 0.8839
+      }
+    },
+    "koreksi_log_global": -0.0194,
+    "koreksi_log_layanan": {
+      "ekspres": -0.0331,
+      "hemat": -0.0009,
+      "kargo": -0.0119,
+      "reguler": -0.0354
+    },
+    "varian_konformal_dipilih": "tanpa kalibrasi",
+    "uji_jul_agu_terkalibrasi": {
+      "pinball_q50": 7.081,
+      "pinball_q90": 4.438,
+      "coverage_p90": 0.8899,
+      "coverage_p50": 0.5021
+    },
+    "test_median_p50": 63.42,
+    "test_median_p90": 82.95
+  },
+  "waktu_detik": {
+    "task1: muat data + audit": 12.7,
+    "task1: tuning LightGBM di F1-F2": 178.7,
+    "task1: perbandingan model di F1-F3": 62.4,
+    "task1: random 5-fold CV vs validasi waktu": 93.5,
+    "task1: ablasi jumlah_scan di F3": 20.3,
+    "task1: perbandingan encoding kota_tujuan + simulasi kategori baru": 110.6,
+    "task1: kalibrasi konformal P90": 14.0,
+    "task1: analisis error per grup": 0.1,
+    "task1: model final + prediksi test": 33.8,
+    "task2: muat data + audit label": 24.3,
+    "task2: fitur perilaku + uji future-invariance": 13.6,
+    "task2: tuning LightGBM di F1-F2": 69.6,
+    "task2: perbandingan model di F1-F3": 69.7,
+    "task2: ablasi flag_review_manual (F3)": 33.8,
+    "task2: perbandingan penanganan imbalance (F3)": 40.2,
+    "task2: kalibrasi + aturan keputusan (F3)": 1.6,
+    "task2: pergeseran pola + adaptasi recency (F3)": 21.3,
+    "task2: analisis error (F3)": 1.4,
+    "task2: model final + prediksi test": 102.0,
+    "task3: muat data + preprocessing": 3.6,
+    "task3: pemilihan jumlah cluster": 133.4,
+    "task3: bukti seleksi fitur": 97.0,
+    "task3: perbandingan metode": 174.4,
+    "task3: model final + stabilitas": 84.0,
+    "task3: anomali + label final": 4.7,
+    "task3: profil segmen": 2.4,
+    "total_task_all": 1414.6
+  },
+  "task1_F3": {
+    "baseline kuantil grup": {
+      "fold": "F3",
+      "pinball_q50": 10.487,
+      "pinball_q90": 6.458,
+      "coverage_p90": 0.8891,
+      "coverage_p50": 0.4841
+    },
+    "linear (Ridge, log target)": {
+      "fold": "F3",
+      "pinball_q50": 7.327,
+      "pinball_q90": 4.531,
+      "coverage_p90": 0.8977,
+      "coverage_p50": 0.4855
+    },
+    "LightGBM quantile": {
+      "fold": "F3",
+      "pinball_q50": 6.928,
+      "pinball_q90": 4.37,
+      "coverage_p90": 0.8769,
+      "coverage_p50": 0.4762
+    }
+  },
+  "task2": {
+    "fraud_rate_plateau": 0.00624,
+    "delay_label_estimasi_hari": 28,
+    "fraud_rate_minggu_terakhir": 0.00092,
+    "flag_review": {
+      "fraud_rate_flag1": 0.3037,
+      "fraud_rate_flag0": 0.0013,
+      "share_fraud_flagged": 0.799,
+      "flag_rate_train": 0.0171,
+      "flag_rate_test": 0.0123,
+      "auc_univariat": 0.8935
+    },
+    "missing_menit_%": 25.46,
+    "missing_menit_dan_trx7h_nol_%": 25.46,
+    "fraud_rate_train": 0.0065,
+    "v15_spearman_waktu": 0.578,
+    "delay_label_dipakai_hari": 28,
+    "uji_future_invariance": "lulus",
+    "param_terbaik": {
+      "num_leaves": 15,
+      "n_estimators": 448
+    },
+    "pr_auc_per_fold": {
+      "LightGBM": {
+        "F1": 0.8013,
+        "F2": 0.7766,
+        "F3": 0.7711
+      },
+      "LightGBM tanpa fitur perilaku": {
+        "F1": NaN,
+        "F2": NaN,
+        "F3": 0.7489
+      },
+      "logistic regression": {
+        "F1": 0.6837,
+        "F2": 0.6621,
+        "F3": 0.6584
+      }
+    },
+    "ablasi_leakage": {
+      "fitur final (tanpa flag_review_manual, v15, hitungan kumulatif)": 0.7711,
+      "+ flag_review_manual (leakage)": 0.9075,
+      "+ v15 dan hitungan kumulatif (drift)": 0.7706
+    },
+    "imbalance": {
+      "tanpa penanganan": {
+        "pr_auc": 0.7711,
+        "brier_mentah": 0.00241,
+        "brier_kalibrasi": 0.00232,
+        "cost_aturan_biaya_juta": 75.6,
+        "cost_ambang_global_juta": 88.8
+      },
+      "class weight (scale_pos_weight)": {
+        "pr_auc": 0.7483,
+        "brier_mentah": 0.01054,
+        "brier_kalibrasi": 0.00271,
+        "cost_aturan_biaya_juta": 85.5,
+        "cost_ambang_global_juta": 105.0
+      },
+      "undersampling negatif 1:20": {
+        "pr_auc": 0.7427,
+        "brier_mentah": 0.00324,
+        "brier_kalibrasi": 0.0026,
+        "cost_aturan_biaya_juta": 78.2,
+        "cost_ambang_global_juta": 91.7
+      }
+    },
+    "pendekatan_dipilih": "tanpa penanganan",
+    "kalibrasi": {
+      "tanpa kalibrasi": {
+        "brier": 0.00241,
+        "log_loss": 0.01084,
+        "pr_auc": 0.7711,
+        "mean_prob": 0.00556,
+        "fraud_rate_aktual": 0.00636,
+        "cost_aturan_biaya_juta": 75.6
+      },
+      "Platt": {
+        "brier": 0.00232,
+        "log_loss": 0.01094,
+        "pr_auc": 0.7711,
+        "mean_prob": 0.00711,
+        "fraud_rate_aktual": 0.00636,
+        "cost_aturan_biaya_juta": 75.6
+      },
+      "isotonic": {
+        "brier": 0.00235,
+        "log_loss": 0.01402,
+        "pr_auc": 0.7667,
+        "mean_prob": 0.00705,
+        "fraud_rate_aktual": 0.00636,
+        "cost_aturan_biaya_juta": 76.9
+      }
+    },
+    "kalibrator_dipilih": "Platt",
+    "strategi_keputusan": {
+      "tidak ada yang di-flag": 790.1,
+      "semua di-flag": 2564.8,
+      "ambang probabilitas global (dipilih di jendela kalibrasi)": 88.8,
+      "aturan biaya: p x nominal > 25.000": 75.6,
+      "sensitivitas: p x nominal > 0.5 x 25.000": 82.5,
+      "sensitivitas: p x nominal > 0.75 x 25.000": 75.8,
+      "sensitivitas: p x nominal > 1.0 x 25.000": 75.6,
+      "sensitivitas: p x nominal > 1.5 x 25.000": 73.8,
+      "sensitivitas: p x nominal > 2.0 x 25.000": 75.1
+    },
+    "F3_pr_auc_final": 0.7711,
+    "F3_prevalensi": 0.00636,
+    "adaptasi_recency": {
+      "tanpa bobot": {
+        "pr_auc": 0.7711,
+        "cost_juta": 75.6
+      },
+      "bobot recency (half-life 60 hari)": {
+        "pr_auc": 0.7662,
+        "cost_juta": 79.0
+      }
+    },
+    "pakai_bobot_recency": false,
+    "final_latih_sampai": "2025-08-03",
+    "final_dibuang_label_belum_matang": 48095,
+    "test_n_flag": 1541,
+    "test_persen_flag": 1.445,
+    "test_mean_prob": 0.0066,
+    "adversarial_auc": {
+      "semua kolom (termasuk v15 dan hitungan kumulatif)": 0.9906,
+      "fitur model final": 0.9564
+    }
+  },
+  "task3": {
+    "n_pelanggan": 120000,
+    "n_tidur": 6736,
+    "n_model": 111673,
+    "rata2_keranjang_kosong_sama_dengan_frek0": true,
+    "porsi_kategori_jumlah_1": false,
+    "max_abs_rho_noise": 0.0206,
+    "n_baris_winsorize": 4484,
+    "pca_varian_terjelaskan_%": 49.2,
+    "n_fitur_sebelum_pca": 34,
+    "k_dipilih": 7,
+    "varian_fitur": {
+      "final: Hellinger + amalgamasi, tanpa noise/profil": {
+        "silhouette": 0.165,
+        "stabilitas_ARI_rata2": 0.963,
+        "stabilitas_ARI_std": 0.003
+      },
+      "CLR + amalgamasi": {
+        "silhouette": 0.144,
+        "stabilitas_ARI_rata2": 0.931,
+        "stabilitas_ARI_std": 0.012
+      },
+      "CLR 16 kategori": {
+        "silhouette": 0.145,
+        "stabilitas_ARI_rata2": 0.94,
+        "stabilitas_ARI_std": 0.015
+      },
+      "Hellinger 16 kategori": {
+        "silhouette": 0.164,
+        "stabilitas_ARI_rata2": 0.961,
+        "stabilitas_ARI_std": 0.007
+      },
+      "porsi mentah (tanpa transformasi)": {
+        "silhouette": 0.145,
+        "stabilitas_ARI_rata2": 0.954,
+        "stabilitas_ARI_std": 0.008
+      },
+      "+ n01-n15 dan profil tak relevan": {
+        "silhouette": 0.165,
+        "stabilitas_ARI_rata2": 0.96,
+        "stabilitas_ARI_std": 0.004
+      }
+    },
+    "perbandingan_metode": {
+      "K-Means": {
+        "n_cluster": 7,
+        "silhouette": 0.171,
+        "davies_bouldin": 1.725,
+        "calinski_harabasz": 19627.0,
+        "stabilitas_ARI": 0.975,
+        "waktu_detik": 0.9,
+        "ARI_vs_GMM": 0.774
+      },
+      "Gaussian Mixture (full)": {
+        "n_cluster": 7,
+        "silhouette": 0.168,
+        "davies_bouldin": 1.748,
+        "calinski_harabasz": 18647.0,
+        "stabilitas_ARI": 0.981,
+        "waktu_detik": 5.5,
+        "ARI_vs_GMM": 1.0
+      },
+      "Agglomerative (Ward)": {
+        "n_cluster": 7,
+        "silhouette": 0.157,
+        "davies_bouldin": 1.718,
+        "calinski_harabasz": 17564.0,
+        "stabilitas_ARI": 0.76,
+        "waktu_detik": 11.1,
+        "ARI_vs_GMM": 0.744
+      },
+      "HDBSCAN": {
+        "n_cluster": 2,
+        "silhouette": 0.128,
+        "davies_bouldin": 1.763,
+        "calinski_harabasz": 14297.0,
+        "stabilitas_ARI": 0.384,
+        "waktu_detik": 2.9,
+        "ARI_vs_GMM": 0.114
+      }
+    },
+    "stabilitas": {
+      "antar pasangan run": {
+        "mean": 0.9455,
+        "median": 0.9775,
+        "std": 0.0945,
+        "min": 0.6611,
+        "max": 0.9857,
+        "n_di_bawah_0,9": 19
+      },
+      "run vs model final": {
+        "mean": 0.9667,
+        "median": 0.9849,
+        "std": 0.0718,
+        "min": 0.6635,
+        "max": 0.9897,
+        "n_di_bawah_0,9": 1
+      }
+    },
+    "stabilitas_runs": 20,
+    "n_anomali": 1688,
+    "persen_anomali": 1.41,
+    "n_bot": 1591,
+    "n_anomali_konsensus": 97,
+    "segmen": {
+      "-1": {
+        "nama": "Anomali (bot & profil ekstrem)",
+        "n": 1688,
+        "persen": 1.41
+      },
+      "0": {
+        "nama": "Konversi tinggi & sering belanja, fokus makanan minuman",
+        "n": 10135,
+        "persen": 8.45
+      },
+      "1": {
+        "nama": "Keranjang besar & belanja besar, fokus elektronik",
+        "n": 14537,
+        "persen": 12.11
+      },
+      "2": {
+        "nama": "Usia matang & sering belanja, fokus ibu bayi",
+        "n": 20177,
+        "persen": 16.81
+      },
+      "3": {
+        "nama": "Pengguna paylater & sering retur, fokus fashion",
+        "n": 11290,
+        "persen": 9.41
+      },
+      "4": {
+        "nama": "Pemburu voucher & penggemar flash sale, fokus voucher digital",
+        "n": 24913,
+        "persen": 20.76
+      },
+      "5": {
+        "nama": "Member baru & belanja kecil",
+        "n": 12226,
+        "persen": 10.19
+      },
+      "6": {
+        "nama": "Mulai jarang & belanja kecil",
+        "n": 18298,
+        "persen": 15.25
+      },
+      "7": {
+        "nama": "Pelanggan tidur (0 transaksi 90 hari)",
+        "n": 6736,
+        "persen": 5.61
+      }
+    },
+    "cramers_v_perangkat_vs_segmen": 0.258,
+    "cramers_v_kota_tier_vs_segmen": 0.01,
+    "n_cluster_total_termasuk_tidur": 8
+  }
+}

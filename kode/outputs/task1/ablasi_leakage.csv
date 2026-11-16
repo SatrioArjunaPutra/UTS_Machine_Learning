@@ -1,0 +1,3 @@
+fitur,pinball_q50,pinball_q90,coverage_p90,coverage_p50
+tanpa jumlah_scan (dipakai),6.928,4.37,0.8769,0.4762
+dengan jumlah_scan (leakage),5.461,2.899,0.8782,0.4831

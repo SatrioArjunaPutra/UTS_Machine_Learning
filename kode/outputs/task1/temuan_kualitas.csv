@@ -1,0 +1,8 @@
+temuan,n_train,n_test,bukti,penanganan
+durasi_jam ≥ 1.000 dan bulat (tercatat dalam menit),370,,"100% bulat vs 10% pada data normal; median/60 = 64,1 jam vs median normal 61,5 jam",Dibagi 60
+jarak_km = 9999 (sentinel),456,130,Nilai tepat 9999 berulang,Diganti NaN
+jarak_km = 0,703,177,Jarak rute nol tidak masuk akal untuk antar kota,Diganti NaN
+umur_akun_penjual_hari > 25 tahun,156,36,Maks 52.783 hari,Diganti NaN
+berat_kg kosong,13897,3265,"Median durasi 71,4 jam bila kosong vs 61,1 jam bila terisi",Dibiarkan NaN + indikator berat_hilang
+mitra_kurir hanya di test (K13),0,2342,Kategori baru,Dipetakan ke NaN (cabang missing)
+Duplikat id_paket,0,0,,-

@@ -1,0 +1,4 @@
+varian,coverage_p90,pinball_q90,coverage_min_layanan,coverage_max_layanan
+tanpa kalibrasi,0.8899,4.438,0.8799,0.8996
+konformal global,0.8772,4.482,0.8655,0.8913
+konformal per layanan (Mondrian),0.8764,4.475,0.8723,0.8839
