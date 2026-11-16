@@ -1,0 +1,9 @@
+numpy==2.5.0
+pandas==3.0.3
+scikit-learn==1.9.1
+scipy==1.18.0
+lightgbm==4.7.0
+matplotlib==3.11.0
+# hanya untuk membangun laporan.pdf (kode/report/build_report.py)
+reportlab==5.1.0
+pypdf==6.21.4
