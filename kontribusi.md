@@ -22,5 +22,5 @@ Keputusan akhir (fitur yang dibuang, skema validasi, aturan keputusan, jumlah cl
 
 ## Persetujuan
 
-- [ ] M Marcheliano Taji Suryana menyetujui isi dokumen ini
-- [ ] Satrio Arjuna Putra menyetujui isi dokumen ini
+- [x] M Marcheliano Taji Suryana menyetujui isi dokumen ini
+- [x] Satrio Arjuna Putra menyetujui isi dokumen ini
