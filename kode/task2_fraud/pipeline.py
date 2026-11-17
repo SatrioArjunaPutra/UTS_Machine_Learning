@@ -312,7 +312,8 @@ def run(quick: bool = False) -> None:
         flag = cost_rule_flag(prob, nom_t)
         out = pd.DataFrame({"id_transaksi": all_df.loc[is_test, "id_transaksi"].to_numpy(),
                             "prob": np.round(prob, 6), "tandai": flag.astype(int)})
-        out.to_csv(config.PRED_KLASIFIKASI, index=False)
+        if not quick:                      # --quick (subsampel) tidak boleh menimpa prediksi final
+            out.to_csv(config.PRED_KLASIFIKASI, index=False)
         record_metric("task2", "test_n_flag", int(flag.sum()))
         record_metric("task2", "test_persen_flag", round(100 * float(flag.mean()), 3))
         record_metric("task2", "test_mean_prob", round(float(prob.mean()), 5))
