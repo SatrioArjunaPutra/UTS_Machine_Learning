@@ -68,8 +68,8 @@ def front():
                     f"{T2['delay_label_dipakai_hari']} hari, kalibrasi {T2['kalibrator_dipilih']}, flag jika p × nominal > Rp25.000",
          f"PR-AUC {num(T2['F3_pr_auc_final'], 3)} (prevalensi {pct(T2['F3_prevalensi'], 2)}); cost {rp(rule)} vs "
          f"{rp(dec['tidak ada yang di-flag'])} (tanpa flag) dan {rp(dec['semua di-flag'])} (flag semua)"],
-        ["3 Clustering", f"Hellinger + log1p + PCA 8, GMM full k = {T3['k_dipilih']} + 1 segmen pelanggan tidur; "
-                         "bot & outlier konsensus = −1",
+        ["3 Clustering", f"Hellinger + log1p + PCA 8, GMM full k = {T3['k_dipilih']}; pelanggan frekuensi 0 masuk "
+                         "segmen lewat fitur yang terisi; bot & outlier konsensus = −1",
          f"Stabilitas ARI antar-run: median {num(st['median'], 3)}, rata-rata {num(st['mean'], 3)}; "
          f"anomali {num(T3['persen_anomali'])}%"],
     ], columns=["Task", "Pendekatan final", "Hasil validasi (data latih, skema waktu)"])
@@ -332,12 +332,21 @@ def task3():
     noise = csv("task3", "bukti_noise_n01_n15")
     var = csv("task3", "perbandingan_varian_fitur")
     s += [H2("3a. Preprocessing"),
-          P(f"{ribu(T3['n_pelanggan'])} pelanggan. Dua kelompok dipisah sebelum clustering: (1) <b>pelanggan tidur</b> "
-            f"(frekuensi_90h = 0, {ribu(T3['n_tidur'])} orang). Pada kelompok ini semua metrik transaksi bernilai 0 dan "
-            "rata2_keranjang kosong, tepat pada baris yang sama "
+          P(f"{ribu(T3['n_pelanggan'])} pelanggan. Dua kelompok dipisah sebelum clustering: (1) <b>bot</b> "
+            f"(sesi_per_minggu > 100, {ribu(T3['n_bot'])} orang), lihat 3g. (2) <b>pelanggan dengan frekuensi_90h = 0</b> "
+            f"({ribu(T3['n_frekuensi0'])} orang). Semua metrik transaksi 30/90 hari mereka bernilai 0 dan rata2_keranjang "
+            "kosong tepat pada baris yang sama "
             f"({'terverifikasi' if T3['rata2_keranjang_kosong_sama_dengan_frek0'] else 'tidak terverifikasi'}): rata-rata dari "
-            "0 pesanan tidak terdefinisi, jadi missing ini struktural, bukan acak, dan kelompok ini menjadi segmen aturan. "
-            f"(2) <b>bot</b> (sesi_per_minggu > 100, {ribu(T3['n_bot'])} orang), lihat 3g. Pada sisa {ribu(T3['n_model'])} pelanggan: "
+            "0 pesanan tidak terdefinisi, jadi missing ini struktural, bukan acak. Mereka tidak ikut melatih GMM, tetapi juga "
+            f"tidak dijadikan segmen sendiri: {num(T3['frek0_recency_lt90_%'], 1)}% punya recency_hari < 90 dan "
+            f"{num(T3['frek0_retur_gt0_%'], 1)}% punya retur dalam 90 hari, sehingga data tidak mendukung kelompok "
+            "\"tidak belanja 90 hari\". Profil non-transaksinya (porsi kategori, jam, sesi, lama member, recency) mirip "
+            "segmen aktif tertentu. Setelah GMM final, mereka dimasukkan ke segmen aktif dengan Gaussian per segmen pada "
+            "fitur yang terisi (QDA; marginal Gaussian tetap Gaussian, sejalan dengan asumsi GMM; fitur turunan transaksi "
+            f"diabaikan). Akurasinya pada pelanggan aktif holdout {num(T3['frek0_akurasi_penugasan'], 3)}; "
+            f"{num(T3['frek0_persen_segmen_terbanyak'], 1)}% masuk segmen {T3['frek0_segmen_terbanyak']} "
+            f"({T3['segmen'][str(T3['frek0_segmen_terbanyak'])]['nama']}). Rincian di outputs/task3/frekuensi0_penugasan.csv. "
+            f"Pada sisa {ribu(T3['n_model'])} pelanggan: "
             "variabel hitungan/nominal yang sangat miring di-log1p; porsi kategori (16, berjumlah 1) dan porsi jam (4, "
             "berjumlah 1) adalah data komposisional. Log-ratio (CLR/ILR) butuh penggantian nol, padahal nol eksak mencapai "
             "18,6% (porsi_pertanian), sehingga hasil CLR bergantung pada nilai pengganti. Transformasi Hellinger "
@@ -366,7 +375,7 @@ def task3():
     s += [H2("3c–3d. Perbandingan metode dan jumlah cluster"),
           P("k dipilih dari tiga kriteria pada GMM full (k = 3–12): BIC, silhouette, dan stabilitas ARI antar-run "
             "(subsampel 80%). Aturannya: dari k yang stabilitasnya ≥ 0,9, ambil BIC terkecil. "
-            f"Terpilih <b>k = {T3['k_dipilih']}</b> segmen aktif, ditambah segmen pelanggan tidur. Empat metode dibandingkan "
+            f"Terpilih <b>k = {T3['k_dipilih']}</b> segmen. Empat metode dibandingkan "
             "pada k tersebut. Agglomerative (Ward) dan HDBSCAN dijalankan pada subsampel 10.000 karena butuh memori O(n²), "
             "lalu labelnya dipropagasi dengan kNN. GMM dipilih sebagai model final: stabil, sejalan dengan K-Means, "
             "mengizinkan cluster elips, dan menyediakan log-likelihood untuk deteksi anomali. HDBSCAN tidak cocok karena "
@@ -419,7 +428,8 @@ def closing():
                 "Task 2: delay label diestimasi dari kurva agregat karena tidak ada tanggal konfirmasi per transaksi. "
                 "Prevalensi fraud test tidak diketahui; aturan biaya sensitif terhadap kalibrasi.",
                 "Task 3: segmen tumpang tindih (silhouette rendah), jadi ARI terhadap referensi bergantung pada kesesuaian "
-                "asumsi Gaussian; segmen pelanggan tidur ditetapkan dengan aturan.",
+                "asumsi Gaussian. Pelanggan frekuensi 0 ditugaskan tanpa fitur transaksi, sehingga segmennya lebih tidak "
+                "pasti dibanding pelanggan aktif.",
                 "Penggunaan AI (Claude Code) dicatat di kontribusi.md beserta bagian yang dibantu dan cara verifikasinya. "
                 "Semua angka berasal dari kode yang dapat dijalankan ulang.",
             ])]

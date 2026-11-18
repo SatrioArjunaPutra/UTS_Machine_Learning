@@ -315,7 +315,7 @@ def run(quick: bool = False) -> None:
         if not quick:                      # --quick (subsampel) tidak boleh menimpa prediksi final
             out.to_csv(config.PRED_KLASIFIKASI, index=False)
         record_metric("task2", "test_n_flag", int(flag.sum()))
-        record_metric("task2", "test_persen_flag", round(100 * float(flag.mean()), 3))
+        record_metric("task2", "test_persen_flag", round(100 * float(flag.mean()), 2))
         record_metric("task2", "test_mean_prob", round(float(prob.mean()), 5))
 
         # adversarial validation: bisakah model membedakan train (Jan-Agu) dari test (Sep-Okt)?
