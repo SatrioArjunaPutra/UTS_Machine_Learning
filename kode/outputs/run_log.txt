@@ -1,72 +1,64 @@
-Versi: python 3.14.6, numpy 2.5.0, pandas 3.0.3, scikit-learn 1.9.1, scipy 1.18.0, lightgbm 4.7.0, matplotlib 3.11.0
+Versi: python 3.12.10, numpy 2.5.0, pandas 3.0.3, scikit-learn 1.9.1, scipy 1.18.0, lightgbm 4.7.0, matplotlib 3.11.0
 [mulai] task1: muat data + audit
-[selesai] task1: muat data + audit: 12.7 detik
+[selesai] task1: muat data + audit: 17.8 detik
 [mulai] task1: tuning LightGBM di F1-F2
   parameter terbaik: {0.5: {'num_leaves': 31, 'log_target': False, 'n_estimators': 188}, 0.9: {'num_leaves': 31, 'log_target': False, 'n_estimators': 518}}
-[selesai] task1: tuning LightGBM di F1-F2: 178.7 detik
+[selesai] task1: tuning LightGBM di F1-F2: 300.3 detik
 [mulai] task1: perbandingan model di F1-F3
-[selesai] task1: perbandingan model di F1-F3: 62.4 detik
+[selesai] task1: perbandingan model di F1-F3: 43.4 detik
 [mulai] task1: random 5-fold CV vs validasi waktu
-[selesai] task1: random 5-fold CV vs validasi waktu: 93.5 detik
+[selesai] task1: random 5-fold CV vs validasi waktu: 104.4 detik
 [mulai] task1: ablasi jumlah_scan di F3
-[selesai] task1: ablasi jumlah_scan di F3: 20.3 detik
+[selesai] task1: ablasi jumlah_scan di F3: 29.6 detik
 [mulai] task1: perbandingan encoding kota_tujuan + simulasi kategori baru
-[selesai] task1: perbandingan encoding kota_tujuan + simulasi kategori baru: 110.6 detik
+[selesai] task1: perbandingan encoding kota_tujuan + simulasi kategori baru: 139.8 detik
 [mulai] task1: kalibrasi konformal P90
   varian konformal: tanpa kalibrasi
-[selesai] task1: kalibrasi konformal P90: 14.0 detik
+[selesai] task1: kalibrasi konformal P90: 19.7 detik
 [mulai] task1: analisis error per grup
 [selesai] task1: analisis error per grup: 0.1 detik
 [mulai] task1: model final + prediksi test
-[selesai] task1: model final + prediksi test: 33.8 detik
+[selesai] task1: model final + prediksi test: 21.8 detik
 [mulai] task2: muat data + audit label
-[selesai] task2: muat data + audit label: 24.3 detik
+[selesai] task2: muat data + audit label: 15.0 detik
 [mulai] task2: fitur perilaku + uji future-invariance
-[selesai] task2: fitur perilaku + uji future-invariance: 13.6 detik
+[selesai] task2: fitur perilaku + uji future-invariance: 11.8 detik
 [mulai] task2: tuning LightGBM di F1-F2
   parameter terbaik: {'num_leaves': 15, 'n_estimators': 448}
-[selesai] task2: tuning LightGBM di F1-F2: 69.6 detik
+[selesai] task2: tuning LightGBM di F1-F2: 92.4 detik
 [mulai] task2: perbandingan model di F1-F3
-[selesai] task2: perbandingan model di F1-F3: 69.7 detik
+[selesai] task2: perbandingan model di F1-F3: 92.2 detik
 [mulai] task2: ablasi flag_review_manual (F3)
-[selesai] task2: ablasi flag_review_manual (F3): 33.8 detik
+[selesai] task2: ablasi flag_review_manual (F3): 44.1 detik
 [mulai] task2: perbandingan penanganan imbalance (F3)
   pendekatan imbalance: tanpa penanganan
-[selesai] task2: perbandingan penanganan imbalance (F3): 40.2 detik
+[selesai] task2: perbandingan penanganan imbalance (F3): 54.8 detik
 [mulai] task2: kalibrasi + aturan keputusan (F3)
-[selesai] task2: kalibrasi + aturan keputusan (F3): 1.6 detik
+[selesai] task2: kalibrasi + aturan keputusan (F3): 1.9 detik
 [mulai] task2: pergeseran pola + adaptasi recency (F3)
-[selesai] task2: pergeseran pola + adaptasi recency (F3): 21.3 detik
+[selesai] task2: pergeseran pola + adaptasi recency (F3): 31.6 detik
 [mulai] task2: analisis error (F3)
-[selesai] task2: analisis error (F3): 1.4 detik
+[selesai] task2: analisis error (F3): 0.3 detik
 [mulai] task2: model final + prediksi test
-[selesai] task2: model final + prediksi test: 102.0 detik
+[selesai] task2: model final + prediksi test: 69.0 detik
 [mulai] task3: muat data + preprocessing
-[selesai] task3: muat data + preprocessing: 3.6 detik
+[selesai] task3: muat data + preprocessing: 2.8 detik
 [mulai] task3: pemilihan jumlah cluster
   k terpilih: 7
-[selesai] task3: pemilihan jumlah cluster: 133.4 detik
+[selesai] task3: pemilihan jumlah cluster: 131.6 detik
 [mulai] task3: bukti seleksi fitur
-[selesai] task3: bukti seleksi fitur: 97.0 detik
+[selesai] task3: bukti seleksi fitur: 96.8 detik
 [mulai] task3: perbandingan metode
-C:\Users\archpo\AppData\Local\Programs\Python\Python314\Lib\site-packages\sklearn\cluster\_hdbscan\hdbscan.py:722: FutureWarning: The default value of `copy` will change from False to True in 1.10. Explicitly set a value for `copy` to silence this warning.
-  warn(
-C:\Users\archpo\AppData\Local\Programs\Python\Python314\Lib\site-packages\sklearn\cluster\_hdbscan\hdbscan.py:722: FutureWarning: The default value of `copy` will change from False to True in 1.10. Explicitly set a value for `copy` to silence this warning.
-  warn(
-C:\Users\archpo\AppData\Local\Programs\Python\Python314\Lib\site-packages\sklearn\cluster\_hdbscan\hdbscan.py:722: FutureWarning: The default value of `copy` will change from False to True in 1.10. Explicitly set a value for `copy` to silence this warning.
-  warn(
-C:\Users\archpo\AppData\Local\Programs\Python\Python314\Lib\site-packages\sklearn\cluster\_hdbscan\hdbscan.py:722: FutureWarning: The default value of `copy` will change from False to True in 1.10. Explicitly set a value for `copy` to silence this warning.
-  warn(
-C:\Users\archpo\AppData\Local\Programs\Python\Python314\Lib\site-packages\sklearn\cluster\_hdbscan\hdbscan.py:722: FutureWarning: The default value of `copy` will change from False to True in 1.10. Explicitly set a value for `copy` to silence this warning.
-  warn(
-[selesai] task3: perbandingan metode: 174.4 detik
+[selesai] task3: perbandingan metode: 402.3 detik
 [mulai] task3: model final + stabilitas
-[selesai] task3: model final + stabilitas: 84.0 detik
+[selesai] task3: model final + stabilitas: 95.9 detik
 [mulai] task3: anomali + label final
-[selesai] task3: anomali + label final: 4.7 detik
+[selesai] task3: anomali + label final: 6.0 detik
+[mulai] task3: pelanggan frekuensi 0 -> segmen aktif
+[selesai] task3: pelanggan frekuensi 0 -> segmen aktif: 1.2 detik
 [mulai] task3: profil segmen
-[selesai] task3: profil segmen: 2.4 detik
-Total waktu: 23.6 menit
+[selesai] task3: profil segmen: 1.5 detik
+Total waktu: 30.7 menit
 OK    prediksi_regresi.csv ada di root repo
 OK    regresi: header persis id_paket,p50,p90
 OK    regresi: 60,000 baris = 60,000 paket test
@@ -91,4 +83,3 @@ OK    cluster: bertipe integer
 OK    cluster: hanya -1 (anomali) atau >= 0
 
 22/22 pengecekan lulus
-exit=0

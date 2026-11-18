@@ -72,6 +72,25 @@ def fmt(v, nd=3):
     return str(v).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
+def _fit_words(df: pd.DataFrame, widths: list, font: float, nd: int) -> list:
+    """Lebarkan kolom agar kata terpanjang (header maupun isi) tidak terpotong di tengah;
+    kekurangannya diambil dari kolom yang masih longgar. Bila total kebutuhan melebihi
+    lebar halaman, lebar semula dipakai."""
+    pad = 6 + 1
+    need = []
+    for j, c in enumerate(df.columns):
+        words = [(w, "DejaVu-Bold") for w in str(c).replace("_", " ").split()]
+        words += [(w, "DejaVu") for v in df.iloc[:, j].tolist() for w in fmt(v, nd).split()]
+        need.append(max((pdfmetrics.stringWidth(w.replace("&amp;", "&"), f, font) for w, f in words), default=0) + pad)
+    if sum(need) > TEXT_W:
+        return widths
+    out = [max(w, n) for w, n in zip(widths, need)]
+    extra = sum(out) - TEXT_W
+    slack = [o - n for o, n in zip(out, need)]
+    tot = sum(slack)
+    return [o - extra * s / tot for o, s in zip(out, slack)] if extra > 0 and tot > 0 else out
+
+
 def table(df: pd.DataFrame, widths=None, nd=3, highlight_rows=(), font=7.0):
     font = font * 1.08
     cell = ParagraphStyle("c", parent=ST["cell"], fontSize=font, leading=font * 1.2)
@@ -84,6 +103,7 @@ def table(df: pd.DataFrame, widths=None, nd=3, highlight_rows=(), font=7.0):
     else:
         s = sum(widths)
         widths = [w * TEXT_W / s for w in widths]
+    widths = _fit_words(df, widths, font, nd)
     t = Table(data, colWidths=widths, repeatRows=1)
     style = [("BACKGROUND", (0, 0), (-1, 0), ACCENT),
              ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
