@@ -55,8 +55,7 @@ def _traits(zmeans: pd.Series, top: int = 2) -> list[tuple[str, int]]:
     return picked
 
 
-def build_profiles(df: pd.DataFrame, labels: np.ndarray, Zdf: pd.DataFrame, model_mask: np.ndarray,
-                   dormant_id: int) -> pd.DataFrame:
+def build_profiles(df: pd.DataFrame, labels: np.ndarray, Zdf: pd.DataFrame, model_mask: np.ndarray) -> pd.DataFrame:
     act = labels >= 0
     glob_share = df.loc[model_mask, CAT_SHARES].mean()
     rows = []
@@ -73,9 +72,6 @@ def build_profiles(df: pd.DataFrame, labels: np.ndarray, Zdf: pd.DataFrame, mode
         r["perangkat_dominan"] = f"{dev.index[0]} ({dev.iloc[0] * 100:.0f}%)"
         if c == -1:
             r["nama"], r["aksi_marketing"] = "Anomali (bot & profil ekstrem)", "Dikecualikan dari kampanye; audit akun bot"
-        elif c == dormant_id:
-            r["nama"] = "Pelanggan tidur (0 transaksi 90 hari)"
-            r["aksi_marketing"] = "Reaktivasi: voucher selamat datang kembali + pengingat wishlist"
         else:
             mm = m & model_mask
             z = Zdf.loc[np.flatnonzero(mm)].mean()        # Zdf diindeks posisi baris df

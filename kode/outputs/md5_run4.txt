@@ -1,0 +1,3 @@
+48c7bd14447e5067eb434431d1d22117 *prediksi_regresi.csv
+468e479111185f1601830cf7bae850ee *prediksi_klasifikasi.csv
+4e6a903e57cc121a63b3a5ebf73e6035 *cluster.csv

@@ -1,9 +1,10 @@
 """Task 3 (clustering pelanggan): orkestrasi 3a-3g + cluster.csv.
 
-Alur: pisahkan pelanggan tidur (segmen aturan) dan bot (anomali) -> preprocessing
-(log1p, Hellinger, winsorize, standardisasi, PCA 8) -> pilih k (BIC, silhouette,
-stabilitas) -> bandingkan 4 metode -> GMM full final -> stabilitas 20 run ->
-anomali konsensus -> profil & aksi marketing.
+Alur: pisahkan bot (anomali) dan pelanggan frekuensi_90h = 0 (fitur transaksi
+tidak terdefinisi) -> preprocessing (log1p, Hellinger, winsorize, standardisasi,
+PCA 8) -> pilih k (BIC, silhouette, stabilitas) -> bandingkan 4 metode -> GMM full
+final -> stabilitas 20 run -> anomali konsensus -> pelanggan frekuensi 0 masuk
+segmen lewat fitur yang terisi -> profil & aksi marketing.
 """
 from __future__ import annotations
 
@@ -14,9 +15,9 @@ from sklearn.mixture import GaussianMixture
 
 import config
 from common import io
-from common.utils import record_metric, timer
+from common.utils import record_metric, save_table, timer
 from task3_cluster import anomaly, methods, profile, select, stability
-from task3_cluster.preprocess import Preprocessor, split_groups
+from task3_cluster.preprocess import Preprocessor, assign_freq0, split_groups
 
 
 def run(quick: bool = False) -> None:
@@ -26,7 +27,7 @@ def run(quick: bool = False) -> None:
             df = df.sample(30000, random_state=config.SEED).reset_index(drop=True)
         groups = split_groups(df)
         record_metric("task3", "n_pelanggan", len(df))
-        record_metric("task3", "n_tidur", int(groups["dormant"].sum()))
+        record_metric("task3", "n_frekuensi0", int(groups["dormant"].sum()))
         record_metric("task3", "n_model", int(groups["model"].sum()))
         record_metric("task3", "rata2_keranjang_kosong_sama_dengan_frek0",
                       bool((df["rata2_keranjang"].isna() == (df["frekuensi_90h"] == 0)).all()))
@@ -67,14 +68,32 @@ def run(quick: bool = False) -> None:
         lab2 = np.array([remap[v] for v in lab])
         labels = np.full(len(df), -99, dtype=int)
         labels[model_idx] = np.where(cons, -1, lab2)
-        labels[groups["dormant"]] = k                       # segmen pelanggan tidur
         labels[groups["bot"]] = -1
-        assert (labels != -99).all()
         anomaly.summarize(df, labels, groups, info)
+
+    with timer("task3: pelanggan frekuensi 0 -> segmen aktif"):
+        d0 = df.loc[groups["dormant"]]
+        lab0, acc = assign_freq0(pre, pre.Z_[~cons], lab2[~cons], d0)
+        labels[groups["dormant"]] = lab0
+        assert (labels != -99).all()
+        dist = pd.Series(lab0).value_counts(normalize=True)
+        save_table(pd.DataFrame([
+            {"bukti": "n pelanggan frekuensi_90h = 0 (bukan bot)", "nilai": len(d0)},
+            {"bukti": "% dengan recency_hari < 90", "nilai": round(100 * float((d0["recency_hari"] < 90).mean()), 1)},
+            {"bukti": "% dengan recency_hari < 30", "nilai": round(100 * float((d0["recency_hari"] < 30).mean()), 1)},
+            {"bukti": "% dengan retur_90h > 0", "nilai": round(100 * float((d0["retur_90h"] > 0).mean()), 1)},
+            {"bukti": "akurasi penugasan (QDA, holdout pelanggan aktif)", "nilai": round(acc, 3)},
+            *[{"bukti": f"% masuk segmen {c}", "nilai": round(100 * float(v), 1)} for c, v in dist.sort_index().items()],
+        ]), "task3", "frekuensi0_penugasan")
+        record_metric("task3", "frek0_recency_lt90_%", round(100 * float((d0["recency_hari"] < 90).mean()), 1))
+        record_metric("task3", "frek0_retur_gt0_%", round(100 * float((d0["retur_90h"] > 0).mean()), 1))
+        record_metric("task3", "frek0_akurasi_penugasan", round(acc, 3))
+        record_metric("task3", "frek0_segmen_terbanyak", int(dist.idxmax()))
+        record_metric("task3", "frek0_persen_segmen_terbanyak", round(100 * float(dist.max()), 1))
 
     with timer("task3: profil segmen"):
         Zfull = pd.DataFrame(pre.Z_, columns=pre.columns_, index=model_idx)
-        prof = profile.build_profiles(df, labels, Zfull, groups["model"], dormant_id=k)
+        prof = profile.build_profiles(df, labels, Zfull, groups["model"])
         names = dict(zip(prof["cluster"], prof["nama"]))
         lm = labels[model_idx]
         keep = lm >= 0
@@ -90,4 +109,4 @@ def run(quick: bool = False) -> None:
     out = pd.DataFrame({"id_pelanggan": df["id_pelanggan"].to_numpy(), "cluster": labels.astype(int)})
     if not quick:
         out.to_csv(config.PRED_CLUSTER, index=False)
-    record_metric("task3", "n_cluster_total_termasuk_tidur", int(k + 1))
+    record_metric("task3", "n_cluster_total", int(k))

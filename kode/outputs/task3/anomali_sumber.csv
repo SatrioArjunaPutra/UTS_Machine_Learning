@@ -1,6 +1,6 @@
 sumber,n,persen
-bot (sesi_per_minggu > 100),1591,1.33
+bot (sesi_per_minggu > 100),1672,1.39
 "IsolationForest 0,5% teratas",559,0.47
 "log-likelihood GMM 0,5% terendah",559,0.47
 konsensus kedua detektor,97,0.08
-TOTAL label -1,1688,1.41
+TOTAL label -1,1769,1.47

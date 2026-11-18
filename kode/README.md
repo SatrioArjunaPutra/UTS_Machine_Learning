@@ -31,11 +31,11 @@ python kode/report/build_report.py
 | `python kode/run_all.py --quick` | Subsampel, hanya untuk debugging | 2–4 menit per task |
 | `python kode/check_submission.py` | Cek format 3 CSV | detik |
 
-Determinisme sudah diuji: tiga run penuh menghasilkan ketiga CSV dengan hash MD5 identik (`kode/outputs/md5_run*.txt`).
+Determinisme sudah diuji: tiga run penuh menghasilkan ketiga CSV dengan hash MD5 identik (`kode/outputs/md5_run1–3.txt`). Setelah perubahan penugasan pelanggan frekuensi 0 di Task 3, `cluster.csv` berubah; run penuh ulang di Python 3.12.10 menghasilkan `prediksi_regresi.csv` dan `prediksi_klasifikasi.csv` yang identik dengan run 1–3, dan dua run Task 3 menghasilkan `cluster.csv` identik (`kode/outputs/md5_run4.txt`).
 
 ## Lingkungan
 
-- Python 3.14.6. Versi library dikunci di `requirements.txt` dan dicetak di awal setiap run.
+- Diuji pada Python 3.14.6 dan 3.12.10 (hasil identik). Versi library dikunci di `requirements.txt` dan dicetak di awal setiap run.
 - Seed tunggal `SEED = 42` di `kode/config.py`. LightGBM memakai `deterministic=True` dan `force_row_wise=True`.
 - Data dibaca dari `data_uts_ml/` di root repo (5 file `.csv.gz` + `kamus_data.md`), memakai path relatif.
 
@@ -67,4 +67,5 @@ kode/
 | 2 | Flag jika `p × nominal > 25.000` | `outputs/task2/strategi_keputusan.csv` |
 | 3 | `n01–n15`, `rating_beri_rata2`, `jumlah_alamat`, `kota_tier` tidak dipakai | `outputs/task3/eta2_fitur.csv`, `bukti_noise_n01_n15.csv` |
 | 3 | Komposisi ditransformasi Hellinger | `outputs/task3/perbandingan_varian_fitur.csv` |
+| 3 | Pelanggan `frekuensi_90h` = 0 bukan segmen sendiri; dimasukkan ke segmen aktif (QDA pada fitur yang terisi) | `outputs/task3/frekuensi0_penugasan.csv` |
 | 3 | Bot dan outlier konsensus diberi label -1 | `outputs/task3/anomali_sumber.csv` |
