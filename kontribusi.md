@@ -10,7 +10,7 @@ Kelompok: M Marcheliano Taji Suryana dan Satrio Arjuna Putra. Pembagian kerja 50
 | Satrio Arjuna Putra | Task 2 (2a–2g); Task 3a–3d (preprocessing, seleksi fitur, metode, jumlah cluster), 3f, 3g (profil, anomali); metrik dan validasi submission; helper PDF | `kode/common/metrics.py`, `kode/check_submission.py`, `kode/task2_fraud/*`, `kode/task3_cluster/preprocess.py`, `kode/task3_cluster/select.py`, `kode/task3_cluster/methods.py`, `kode/task3_cluster/anomaly.py`, `kode/task3_cluster/profile.py`, `kode/report/pdfkit.py` | [#7](https://github.com/marcheliano-satrio/UTS_Machine_Learning/pull/7), [#8](https://github.com/marcheliano-satrio/UTS_Machine_Learning/pull/8), [#9](https://github.com/marcheliano-satrio/UTS_Machine_Learning/pull/9), [#10](https://github.com/marcheliano-satrio/UTS_Machine_Learning/pull/10), [#11](https://github.com/marcheliano-satrio/UTS_Machine_Learning/pull/11), [#13](https://github.com/marcheliano-satrio/UTS_Machine_Learning/pull/13), [#14](https://github.com/marcheliano-satrio/UTS_Machine_Learning/pull/14) |
 | Bersama | README, kontribusi.md, laporan.pdf akhir | `kode/README.md`, `kontribusi.md`, `laporan.pdf` | [#12](https://github.com/marcheliano-satrio/UTS_Machine_Learning/pull/12) |
 
-Setiap PR direview dan dijalankan ulang oleh anggota lain sebelum di-merge.
+Setiap PR di-merge oleh pembuatnya sendiri. Kode gabungan di `main` dijalankan ulang (MD5 ketiga CSV dan `check_submission.py` dicek, lihat bagian penggunaan AI), dan review tertulis antaranggota ditambahkan di masing-masing PR setelah merge.
 
 ## Penggunaan alat AI
 
