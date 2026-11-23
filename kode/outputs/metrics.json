@@ -10,11 +10,11 @@
       "matplotlib": "3.11.0"
     },
     "seed": 42,
-    "determinisme": "3 CSV identik (MD5) pada tiga run penuh",
+    "determinisme": "3 CSV identik (MD5) pada tiga run penuh (md5_run1-3.txt); setelah PR #14, prediksi_regresi.csv dan prediksi_klasifikasi.csv tetap identik dan cluster.csv identik pada dua run (md5_run4.txt)",
     "md5": {
       "prediksi_regresi.csv": "48c7bd14447e5067eb434431d1d22117",
       "prediksi_klasifikasi.csv": "468e479111185f1601830cf7bae850ee",
-      "cluster.csv": "459b185e99f423a4450b0c46659a5b0b"
+      "cluster.csv": "4e6a903e57cc121a63b3a5ebf73e6035"
     },
     "waktu_run_penuh_menit": {
       "run1": 16.3,
@@ -307,7 +307,6 @@
   },
   "task3": {
     "n_pelanggan": 120000,
-    "n_tidur": 6736,
     "n_model": 111673,
     "rata2_keranjang_kosong_sama_dengan_frek0": true,
     "porsi_kategori_jumlah_1": false,
@@ -453,7 +452,6 @@
     },
     "cramers_v_perangkat_vs_segmen": 0.259,
     "cramers_v_kota_tier_vs_segmen": 0.01,
-    "n_cluster_total_termasuk_tidur": 8,
     "n_frekuensi0": 6655,
     "frek0_recency_lt90_%": 80.1,
     "frek0_retur_gt0_%": 41.5,
